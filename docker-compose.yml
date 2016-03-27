@@ -1,0 +1,53 @@
+nginx:
+  build: docker/nginx-fpm
+  links:
+    - phpfpm
+  ports:
+    - "8000:80"
+  volumes:
+    - ./app:/var/www/html
+
+phpfpm:
+  build: docker/php56
+  links:
+    - pgsql
+    - mysql
+    - memcached
+    - redis
+  volumes:
+    - ./app:/var/www/html
+  environment:
+    PG_HOST: pgsql
+    MYSQL_HOST: mysql
+    MEMCACHED_HOST: memcached
+    REDIS_HOST: redis
+
+pgsql:
+  image: postgres
+  volumes:
+    - /var/lib/postgresql/data
+  environment:
+    POSTGRES_USER: app
+    POSTGRES_DB: app
+    POSTGRES_PASSWORD: 123
+
+mysql:
+  image: mariadb
+  volumes:
+    - /var/lib/mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: 123
+    MYSQL_DATABASE: app
+    MYSQL_USER: app
+    MYSQL_PASSWORD: 123
+
+memcached:
+  image: memcached
+
+redis:
+  build: docker/redis
+  volumes:
+    - /data
+
+composer:
+  image: composer/composer
