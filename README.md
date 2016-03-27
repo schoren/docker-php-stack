@@ -51,6 +51,31 @@ sudo chmod +x /usr/local/bin/composer
 
 Then you can run `composer` command as usual.
 
+PHP CLI
+========
+
+To use PHP CLI use the following command:
+
+```
+docker run schoren/php56 php <command>
+```
+
+You can create a file in `/usr/local/bin/php` with this:
+
+```
+#!/bin/sh
+export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
+docker run schoren/php56 php $@
+```
+
+And make it executable:
+
+```
+sudo chmod +x /usr/local/bin/php
+```
+
+Then you can run `php` command as usual.
+
 =====================
 
 [Docker]:                      https://www.docker.io/
