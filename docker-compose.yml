@@ -48,6 +48,3 @@ redis:
   build: docker/redis
   volumes:
     - /data
-
-composer:
-  image: composer/composer
