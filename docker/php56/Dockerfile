@@ -42,6 +42,8 @@ RUN set -ex \
         echo 'listen = [::]:9000'; \
     } | tee pool.d/zz-docker.conf
 
+RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
+
 EXPOSE 9000
 
 CMD ["php5-fpm", "-F"]
