@@ -64,6 +64,18 @@ You should run this command within the project folder or a child.
 
 If you have a local php installed, the alias will probably override it.
 
+> NOTE:
+>
+> The provided UID (1000 in this case) is the *host* UID. It *must* match the UID of the www-data user in the
+> guest container. If both UIDs don't match, update the file `docker/php56/Dockerfile`, line 50 and replace the number
+> *1000* with your own UID and GUI. You can find those numbers by running `echo $(id -u $USER):$(id -g $USER)`
+
+> NOTE:
+>
+> These alias will only work within the project directory, and only if the stack is running.
+
+
+
 =====================
 
 [Docker]:                      https://www.docker.io/
