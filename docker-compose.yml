@@ -1,10 +1,5 @@
 version: '2'
 services:
-  code:
-    image: busybox
-    stdin_open: true
-    volumes:
-      - ./app:/var/www/html
   nginx:
     build: ./docker/nginx-fpm
     image: schoren/nginx-fpm
@@ -12,8 +7,8 @@ services:
       - phpfpm
     ports:
       - "8000:80"
-    volumes_from:
-      - code
+    volumes:
+      - ./app:/var/www/html
 
   phpfpm:
     build: ./docker/php56
@@ -23,8 +18,10 @@ services:
       - mysql
       - memcached
       - redis
-    volumes_from:
-      - code
+    volumes:
+      - ./app:/var/www/html
+      - ~/.composer:/var/www/.composer
+      - ~/.ssh:/var/www/.ssh
     environment:
       PG_HOST: pgsql
       MYSQL_HOST: mysql

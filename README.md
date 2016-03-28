@@ -32,24 +32,18 @@ Composer
 To run composer use the following command:
 
 ```
-docker run --rm -v $(pwd):/app composer/composer <command>
+docker-compose exec --user 1000 phpfpm composer <command>
 ```
 
-You can create a file in `/usr/local/bin/composer` with this:
+If you don't like typing, you can use the following alias.
 
 ```
-#!/bin/sh
-export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
-docker run --rm -v $(pwd):/app -v ~/.ssh:/root/.ssh composer/composer $@
+alias composer='docker-compose exec --user 1000 phpfpm composer'
 ```
 
-And make it executable:
+You should run this command within the project folder or a child.
 
-```
-sudo chmod +x /usr/local/bin/composer
-```
-
-Then you can run `composer` command as usual.
+If you have a local composer installed, the alias will probably override it.
 
 PHP CLI
 ========
@@ -57,24 +51,18 @@ PHP CLI
 To use PHP CLI use the following command:
 
 ```
-docker run schoren/php56 php <command>
+docker-compose exec --user 1000 phpfpm php
 ```
 
-You can create a file in `/usr/local/bin/php` with this:
+If you don't like typing, you can use the following alias.
 
 ```
-#!/bin/sh
-export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
-docker run schoren/php56 php $@
+alias php='docker-compose exec --user 1000 phpfpm php'
 ```
 
-And make it executable:
+You should run this command within the project folder or a child.
 
-```
-sudo chmod +x /usr/local/bin/php
-```
-
-Then you can run `php` command as usual.
+If you have a local php installed, the alias will probably override it.
 
 =====================
 
