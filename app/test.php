@@ -7,11 +7,16 @@ echo 'Postgres' . PHP_EOL;
 echo '- Config: host=' . getenv('PG_HOST') . ';dbname=' . getenv('PG_DBNAME')
 . ';user=' . getenv('PG_USER') . ';password=' . getenv('PG_PASSWORD') . PHP_EOL;
 
-$dbh = new PDO(
-    'pgsql:host=' . getenv('PG_HOST') . ';dbname=' . getenv('PG_DBNAME'),
-    getenv('PG_USER'),
-    getenv('PG_PASSWORD')
-);
+try {
+    $dbh = new PDO(
+        'pgsql:host=' . getenv('PG_HOST') . ';dbname=' . getenv('PG_DBNAME'),
+        getenv('PG_USER'),
+        getenv('PG_PASSWORD')
+    );
+    echo '- Succesful connected to PostgreSQL' . PHP_EOL;
+} catch (PDOException $e) {
+    echo 'x Failed to connect to PostgreSQL: ' . $e->getMessage() . PHP_EOL;
+}
 
 try {
     $tableList = array();
@@ -30,12 +35,18 @@ echo PHP_EOL;
 echo 'MySql' . PHP_EOL;
 echo '- Config: host=' . getenv('MYSQL_HOST') . ';dbname=' . getenv('MYSQL_DBNAME')
 . ';user=' . getenv('MYSQL_USER') . ';password=' . getenv('MYSQL_PASSWORD') . PHP_EOL;
-$dbh = new PDO(
-    'mysql:host=' . getenv('MYSQL_HOST') . ';dbname=' . getenv('MYSQL_DBNAME'),
-    getenv('MYSQL_USER'),
-    getenv('MYSQL_PASSWORD'),
-    [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
-);
+
+try {
+    $dbh = new PDO(
+        'mysql:host=' . getenv('MYSQL_HOST') . ';dbname=' . getenv('MYSQL_DBNAME'),
+        getenv('MYSQL_USER'),
+        getenv('MYSQL_PASSWORD'),
+        [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
+    );
+    echo '- Succesful connected to MySql' . PHP_EOL;
+} catch (PDOException $e) {
+    echo 'x Failed to connect to MySql: ' . $e->getMessage() . PHP_EOL;
+}
 
 try {
     $tableList = array();
