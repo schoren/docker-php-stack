@@ -71,7 +71,7 @@ $result = $mem->get('test');
 if ($result === 1) {
     echo '- Succesful connection to Memcached' . PHP_EOL;
 } else {
-    echo 'x Failed use Memcached' . PHP_EOL;
+    echo 'x Failed to use Memcached' . PHP_EOL;
 }
 
 echo PHP_EOL;
@@ -86,5 +86,17 @@ $result = $redis->get('test');
 if ($result == 1) {
     echo '- Succesful connection to Redis' . PHP_EOL;
 } else {
-    echo 'x Failed use Redis' . PHP_EOL;
+    echo 'x Failed to use Redis' . PHP_EOL;
+}
+
+echo PHP_EOL;
+
+// Test FS permissions
+echo 'Permissions' . PHP_EOL;
+touch('test');
+if(file_exists('test')) {
+    unlink('test');
+    echo '- Succesfully created a file' . PHP_EOL;
+} else {
+    echo 'x Failed to create a file' . PHP_EOL;
 }
