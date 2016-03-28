@@ -3,7 +3,6 @@ services:
   nginx:
     build: ./docker/nginx-fpm
     image: schoren/nginx-fpm
-    container_name: web
     links:
       - phpfpm
     ports:
@@ -14,7 +13,6 @@ services:
   phpfpm:
     build: ./docker/php56
     image: schoren/php56
-    container_name: fpm
     links:
       - pgsql
       - mysql
@@ -28,9 +26,16 @@ services:
       MEMCACHED_HOST: memcached
       REDIS_HOST: redis
 
+      PG_DBNAME: app
+      PG_USER: app
+      PG_PASSWORD: 123
+
+      MYSQL_DBNAME: app
+      MYSQL_USER: app
+      MYSQL_PASSWORD: 123
+
   pgsql:
     image: postgres
-    container_name: postgres
     volumes:
       - /var/lib/postgresql/data
     environment:
@@ -40,7 +45,6 @@ services:
 
   mysql:
     image: mariadb
-    container_name: mysql
     volumes:
       - /var/lib/mysql
     environment:
@@ -51,11 +55,9 @@ services:
 
   memcached:
     image: memcached
-    container_name: memcached
 
   redis:
     build: docker/redis
     image: schoren/redis
-    container_name: redis
     volumes:
       - /data

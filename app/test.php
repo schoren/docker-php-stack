@@ -4,13 +4,13 @@ header('Content-Type: text/plain');
 
 // Test Postgres
 echo 'Postgres' . PHP_EOL;
-echo '- Config: host=' . getenv('PG_HOST') . ';dbname=' . getenv('PGSQL_1_ENV_POSTGRES_DB')
-. ';user=' . getenv('PGSQL_ENV_POSTGRES_USER') . ';password=' . getenv('PGSQL_ENV_POSTGRES_PASSWORD') . PHP_EOL;
+echo '- Config: host=' . getenv('PG_HOST') . ';dbname=' . getenv('PG_DBNAME')
+. ';user=' . getenv('PG_USER') . ';password=' . getenv('PG_PASSWORD') . PHP_EOL;
 
 $dbh = new PDO(
-    'pgsql:host=' . getenv('PG_HOST') . ';dbname=' . getenv('PGSQL_1_ENV_POSTGRES_DB'),
-    getenv('PGSQL_ENV_POSTGRES_USER'),
-    getenv('PGSQL_ENV_POSTGRES_PASSWORD')
+    'pgsql:host=' . getenv('PG_HOST') . ';dbname=' . getenv('PG_DBNAME'),
+    getenv('PG_USER'),
+    getenv('PG_PASSWORD')
 );
 
 try {
@@ -28,12 +28,12 @@ echo PHP_EOL;
 
 // Test MySQL
 echo 'MySql' . PHP_EOL;
-echo '- Config: host=' . getenv('MYSQL_HOST') . ';dbname=' . getenv('MYSQL_ENV_MYSQL_DATABASE')
-. ';user=' . getenv('MYSQL_ENV_MYSQL_USER') . ';password=' . getenv('MYSQL_ENV_MYSQL_PASSWORD') . PHP_EOL;
+echo '- Config: host=' . getenv('MYSQL_HOST') . ';dbname=' . getenv('MYSQL_DBNAME')
+. ';user=' . getenv('MYSQL_USER') . ';password=' . getenv('MYSQL_PASSWORD') . PHP_EOL;
 $dbh = new PDO(
-    'mysql:host=' . getenv('MYSQL_HOST') . ';dbname=' . getenv('MYSQL_ENV_MYSQL_DATABASE'),
-    getenv('MYSQL_ENV_MYSQL_USER'),
-    getenv('MYSQL_ENV_MYSQL_PASSWORD'),
+    'mysql:host=' . getenv('MYSQL_HOST') . ';dbname=' . getenv('MYSQL_DBNAME'),
+    getenv('MYSQL_USER'),
+    getenv('MYSQL_PASSWORD'),
     [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
 );
 
